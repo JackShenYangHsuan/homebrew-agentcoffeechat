@@ -10,9 +10,9 @@ class Agentcoffeechat < Formula
   depends_on arch: :arm64
 
   def install
-    bin.install "agentcoffeechat-pkg/bin/acc"
-    bin.install "agentcoffeechat-pkg/bin/agentcoffeechat"
-    bin.install "agentcoffeechat-pkg/bin/agentcoffeechat-daemon"
+    bin.install "bin/acc"
+    bin.install "bin/agentcoffeechat"
+    bin.install "bin/agentcoffeechat-daemon"
   end
 
   def post_install
