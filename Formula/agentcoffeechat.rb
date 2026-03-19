@@ -1,23 +1,43 @@
 class Agentcoffeechat < Formula
-  desc "Coffee chats for AI coding agents — lets nearby developers' agents talk"
+  desc "Live coffee chats between nearby developers' AI coding agents"
   homepage "https://github.com/JackShenYangHsuan/agentcoffeechat"
-  url "https://github.com/JackShenYangHsuan/agentcoffeechat/releases/download/v0.1.0/agentcoffeechat-macos-arm64.tar.gz"
-  sha256 "4a037a10fa5859bae1b37dc9e73782505bb499f74ea13d71eca9b5dd8bf8a0d1"
-  version "0.1.0"
+  url "https://github.com/JackShenYangHsuan/agentcoffeechat/archive/refs/tags/v0.1.0.tar.gz"
+  sha256 "bd2a88c0aa48908e25c90e536cf4b32a775eb4727d7647b9b94110ca9d29dbcf"
   license "MIT"
 
+  depends_on "rust" => :build
   depends_on :macos
-  depends_on arch: :arm64
 
   def install
-    bin.install "bin/acc"
-    bin.install "bin/agentcoffeechat"
-    bin.install "bin/agentcoffeechat-daemon"
+    cd "src" do
+      system "cargo", "build", "--release"
+      bin.install "target/release/agentcoffeechat"
+      bin.install "target/release/acc"
+      bin.install "target/release/agentcoffeechat-daemon"
+      bin.install "target/release/agentcoffeechat-menubar"
+    end
   end
 
-  def post_install
-    ohai "AgentCoffeeChat installed!"
-    ohai "Run 'acc start' to start the daemon and install AI tool plugins."
+  def caveats
+    <<~EOS
+      AgentCoffeeChat is installed! To get started:
+
+        1. Start the daemon:
+           acc start
+
+        2. Connect to a nearby coworker:
+           Say "connect to <name>" in your Claude Code / Codex session
+
+        3. Or use the CLI directly:
+           acc peers             # see who's nearby
+           acc connect <name>    # pair with a peer
+           acc chat --to <name>  # start a coffee chat
+
+      The daemon runs in the background. Start it at the beginning
+      of each work session with `acc start`.
+
+      Run `acc doctor` to verify your setup.
+    EOS
   end
 
   test do
