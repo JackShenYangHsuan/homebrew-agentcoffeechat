@@ -2,7 +2,7 @@ class Agentcoffeechat < Formula
   desc "Live coffee chats between nearby developers' AI coding agents"
   homepage "https://github.com/JackShenYangHsuan/agentcoffeechat"
   url "https://github.com/JackShenYangHsuan/agentcoffeechat/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "bd2a88c0aa48908e25c90e536cf4b32a775eb4727d7647b9b94110ca9d29dbcf"
+  sha256 "105d906e4d9bc125c180e0be209fce80afa88cc2cee53b14772635b64aaa37b2"
   license "MIT"
 
   depends_on "rust" => :build
